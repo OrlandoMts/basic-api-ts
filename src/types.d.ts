@@ -11,4 +11,3 @@ export interface DiaryEntry {
 // Tipos de utilidades de ts
 // export type DiaryEntryNoComm = Pick<DiaryEntry, "id" | "weather">;
 export type DiaryEntryNoComm = Omit<DiaryEntry, "comment">;
-// export interface DiaryEntryNoComm extends DiaryEntry {}
