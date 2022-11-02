@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as diaryServices from "../services/diary.service";
+import toNewDiaryEntry from "../utils";
 
 const router = Router();
 
@@ -18,14 +19,13 @@ router.get("/no-com/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-	const { date, weather, visibility, comment } = req.body;
-	const newEntryDiary = diaryServices.addDiary({
-		date,
-		weather,
-		visibility,
-		comment,
-	});
-	res.send(newEntryDiary);
+	try {
+		const newDiaryEntry = toNewDiaryEntry(req.body);
+		const addDiaryEntry = diaryServices.addDiary(newDiaryEntry);
+		res.json(addDiaryEntry);
+	} catch (error: any) {
+		res.status(400).send(error.message);
+	}
 });
 
 export default router;

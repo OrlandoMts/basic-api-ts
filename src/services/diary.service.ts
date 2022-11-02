@@ -1,4 +1,4 @@
-import { DiaryEntry, DiaryEntryNoComm, Visibility, Weather } from "../types";
+import { DiaryEntry, DiaryEntryNoComm, newDiaryEntry } from "../types";
 import diaryData from "./diaries.json";
 
 const diaries: DiaryEntry[] = diaryData as DiaryEntry[];
@@ -31,19 +31,11 @@ export const getEntryByIdNOComm = (
 	return undefined;
 };
 
-export const addDiary = (
-	date: string,
-	weather: Weather,
-	visibility: Visibility,
-	comment: string
-): DiaryEntry => {
-	const newDiaryEntry = {
+export const addDiary = (newDiaryEntry: newDiaryEntry): DiaryEntry => {
+	const newDiary = {
 		id: Math.max(...diaries.map((e) => e.id)) + 1,
-		date,
-		weather,
-		visibility,
-		comment,
+		...newDiaryEntry,
 	};
-	diaries.push(newDiaryEntry);
-	return newDiaryEntry;
+	diaries.push(newDiary);
+	return newDiary;
 };
